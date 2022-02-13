@@ -52,14 +52,16 @@ const moveAdd = () => {
     console.log('Moves: ${moves}');
     moves.innerHTML = moveCounter;
 }
+
+
 // mach سويت تشيك فور ماتش اذا في تطابق بين البطاقتين فقط اذا تشابه يكتب جمب الكلاس تشابه اذا لا مافي تشابه يكتب انماتش ةيقفل البطاقتين
 const checkForMatch = () => {
 
     if (
-        openCards[0].firstElementChild.className ===
+        openCards[0].firstElementChild.className ==
         openCards[1].firstElementChild.className
     ) {
-        console.log("mach");
+        console.log("match");
         openCards[0].classList.add("match");
         openCards[1].classList.add("match");
         openCards = [];
@@ -67,7 +69,7 @@ const checkForMatch = () => {
 
     } else {
         moveAdd();
-        console.log("unmach");
+        console.log("unmatch");
         setTimeout(() => {
             openCards[0].classList.remove("open");
             openCards[1].classList.remove("open");
@@ -77,26 +79,27 @@ const checkForMatch = () => {
 };
 const validclick = (clickcard) => {
 
-    return clickcard.classList.contains("card") &&!  clickcard.classList.contains("mach")&&!openCards.includes( clickcard)&&openCards.length <2;
+    return (clickcard.classList.contains("card") && !clickcard.classList.contains("match") && !openCards.includes(clickcard) && openCards.length < 2);
 }
 // open جبت ال ديك اي دي عشان ياخذ كل الكاردات سويت ليسنر اذا ضطت على اول كارد يبدا يحسب الوقت فقط لاول بطاقة بعد قلت اذا فقط بطاقتين طلعت متشابهة يسوي تشيك فور ماتش ويكت ماتش سوا تشيك وطلعت ان ماتش يكتب ان ماتش
 const deck = document.querySelector("#deck")
 deck.addEventListener("click", function (event) {
-    if (validclick(event.target)); {
+
+    if (validclick(event.target)) {
 
         if (timerOut) {
             console.log(timerOut)
             initClock();
             timerOut = false;
         }
-    }
 
-    console.log(event.target, "test");
-    event.target.classList.add("open")
 
-    openCards.push(event.target);
-    if (openCards.length === 2) {
-        checkForMatch();
+        console.log(event.target, "test");
+        event.target.classList.add("open")
+        openCards.push(event.target);
+        if (openCards.length == 2) {
+            checkForMatch();
+        }
     }
 
 
@@ -105,12 +108,7 @@ deck.addEventListener("click", function (event) {
 const allcards = [...document.querySelectorAll(".card")]
 const restart = document.querySelector("#restart")
 restart.addEventListener("click", function () {
-
     openCards = [];
-    // const temp = document.querySelector('.open');
-    // temp.classList.remove('open');
-    // console.log(temp);
-
     // get all the matched cards 
     const matchedCards = document.querySelectorAll('.match');
     for (let v = 0; v < matchedCards.length; v++) {
@@ -122,9 +120,7 @@ restart.addEventListener("click", function () {
     timerOut = true;
     time = 0;
     timerCount();
-    heartsCounter();
     reShuffle();
-    
     // هنا حطيت ريلود عشان لمن اسوي ريستات يصفر كل شي
     location.reload();
 })
@@ -145,23 +141,17 @@ function reShuffle() {
     // ensure that there no open cards after shuffling 
 }
 
-function heartsCounter() {
-    hearts++;
-    counter.innerHTML = hearts;
-  
+function movesCounter() {
+    moves++;
+    movesCounters.innerHTML = 0;
     // setting rates based on moves
-    if (hearts > 8 && hearts < 12) {
-      for (i = 0; i < 3; i++) {
-        if (i > 1) {
-            hearts[i].style.visibility = "collapse";
-        }
-      }
-    } else if (hearts > 13) {
-      for (i = 0; i < 3; i++) {
-        if (i > 0) {
-            hearts[i].style.visibility = "collapse";
-        }
-      }
+    if (moves == 8) {
+        hearts[0].innerHTML = '';
     }
-  }
 
+    else if (moves == 16) {
+        hearts[1].innerHTML = '';
+
+    }
+
+}
