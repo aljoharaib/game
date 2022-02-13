@@ -22,7 +22,7 @@ let timerId = 0;
 let timerOut = true;
 const timer = document.querySelector("#timer");
 const moves = document.querySelector("#moves");
-const hearts = document.querySelector("#heart li");
+const Hearts = document.querySelector("#heart li");
 
 
 // timer
@@ -61,8 +61,8 @@ const checkForMatch = () => {
         openCards[1].firstElementChild.className
     ) {
         console.log("mach");
-        openCards[0].classList.toggle("match");
-        openCards[1].classList.toggle("match");
+        openCards[0].classList.add("match");
+        openCards[1].classList.add("match");
         openCards = [];
 
 
@@ -76,16 +76,25 @@ const checkForMatch = () => {
         }, 1000);
     }
 };
+const validclick = (clickcard) => {
+
+    return(openCards.length<2);
+}  
 // open جبت ال ديك اي دي عشان ياخذ كل الكاردات سويت ليسنر اذا ضطت على اول كارد يبدا يحسب الوقت فقط لاول بطاقة بعد قلت اذا فقط بطاقتين طلعت متشابهة يسوي تشيك فور ماتش ويكت ماتش سوا تشيك وطلعت ان ماتش يكتب ان ماتش
 const deck = document.querySelector("#deck")
 deck.addEventListener("click", function (event) {
+    if (validclick(event.target));{
+
     if (timerOut) {
         console.log(timerOut)
         initClock();
         timerOut = false;
     }
+}
+
     console.log(event.target, "test");
-    event.target.classList.add("open")
+        event.target.classList.add("open")
+
     openCards.push(event.target);
     if (openCards.length === 2) {
         checkForMatch();
@@ -94,12 +103,13 @@ deck.addEventListener("click", function (event) {
 
     console.log(openCards, "openCards");
 })
-const allcards = document.querySelectorAll(".card")
+const allcards =[...document.querySelectorAll(".card")]
 const restart = document.querySelector("#restart")
 restart.addEventListener("click", function () {
     
-    const temp = document.querySelector('.open');
-    temp.classList.remove('open');
+    openCards=[];
+    // const temp = document.querySelector('.open');
+    // temp.classList.remove('open');
    // console.log(temp);
 
    // get all the matched cards 
@@ -109,24 +119,21 @@ restart.addEventListener("click", function () {
        // remove match class from the matched card
        matchedCards[v].classList.remove('match');
    }
-
-  
  
-    
     stopClock();
     timerOut = true;
     time = 0;
     timerCount();
     reShuffle();
     // هنا حطيت ريلود عشان لمن اسوي ريستات يصفر كل شي
-   // location.reload();   
+    // location.reload();   
 })
-
+reShuffle();
+console.log("allcards:",allcards);
 // reshufle
 function reShuffle() {
 
     let j,x;
-
 
     for(let i = allcards.length; i ; i--)
     {
@@ -140,8 +147,8 @@ function reShuffle() {
     }
 
 // ensure that there no open cards after shuffling 
-    const temp = document.querySelector('.open');
-    temp.classList.remove('open');
+    // const temp = document.querySelector('.open');
+    // temp.classList.remove('open');
     // console.log('after shuffle--');
     // console.log(allcards);
     //allcards.parentNode.insertBefore();
@@ -151,4 +158,15 @@ function reShuffle() {
     // }
     // console.log(reShuffle);
 }
+// heart
+const countHeart = () => {
+    heartsList=document.querySelectorAll("#heart li");
+    heartsCount=0;
+    for(heart of heartsList) {
+        if (heart.style.display !=="none"){
+            heartsCount++;
+        }
+    }
+    return heartsCount;
+};
 
