@@ -1,0 +1,60 @@
+#panel {
+  max-width: 350px;
+}
+body{
+  background-color: #f38375;
+}
+#deck {
+  background-color:#f7a399;
+  max-width: 680px;
+  margin: auto;
+  padding: 50px 20px;
+  min-height: 600px;
+  box-shadow: 10px 10px 0 0 #000000;
+}
+.img-ico i{
+  color: #bc4749;
+  font-size: 3em;
+}
+.card {
+  width: 22.5%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+  background-color: #bc4749;
+  font-size: 0;
+  cursor: pointer;
+  border-radius: 30px;
+  box-shadow: 5px px 10px 0 rgb(46 61 73 / 50%);
+}
+
+.open {
+  background-color: rgb(41, 41, 44);
+  cursor: default;
+  font-size: 5rem;
+  color: white;
+}
+
+.match {
+  cursor: default;
+  background-color: #f38375;
+  font-size: 5rem;
+}
+
+@media (max-width: 780px) {
+  .card {
+    width: 20.5%;
+    height: 125px;
+  }
+}
+
+@media (max-width: 340px) {
+  #deck {
+    padding: 10px;
+  }
+  .card {
+    width: 18%;
+  }
+}
