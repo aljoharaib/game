@@ -130,12 +130,10 @@ console.log("allcards:", allcards);
 function reShuffle() {
     let j, x;
     for (let i = allcards.length; i; i--) {
-        // console.log(i);
         // get random number 
         j = Math.floor(Math.random() * i);
         // the existing node before inserting new node before 
         x = i - 1;
-        // console.log(j);
         allcards[j].parentNode.insertBefore(allcards[j], allcards[x]);
     }
     // ensure that there no open cards after shuffling 
